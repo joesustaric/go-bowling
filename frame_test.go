@@ -40,6 +40,7 @@ func TestFrameCompleted(t *testing.T) {
 	// strike 2 bonus rolls
 	frame = NewFrame()
 	frame.AddRoll(10)
+
 	frame.AddRoll(3)
 	frame.AddRoll(3)
 
@@ -68,7 +69,16 @@ func TestFrameCompleted(t *testing.T) {
 }
 
 func TestAddRoll(t *testing.T) {
+	//ignores negative numbers
 	frame := NewFrame()
+
+	frame.AddRoll(-3)
+	if frame.Score() != 0 {
+		t.Errorf("Added a negative score")
+	}
+
+	//ignores anything over 10 for the first roll
+	frame = NewFrame()
 
 	frame.AddRoll(5)
 
